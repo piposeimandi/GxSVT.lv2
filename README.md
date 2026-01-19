@@ -15,8 +15,14 @@ the following packages are needed to build GxSVT:
 - x11proto-dev
 - lv2-dev
 
-note that those packages could have different, but similar names 
-on different distributions. There is no configure script, 
+For Ubuntu/Debian based systems, you can install these dependencies using:
+```bash
+sudo apt update
+sudo apt install -y libc6-dev libcairo2-dev libx11-dev x11proto-dev lv2-dev
+```
+
+note that those packages could have different, but similar names
+on different distributions. There is no configure script,
 make will simply fail when one of those packages isn't found.
 
 ## BUILD 

@@ -85,18 +85,20 @@
 	# set compile flags
 	CXXFLAGS += -D_FORTIFY_SOURCE=2 -I. -I./dsp -I./plugin -I./dsp/zita-resampler-1.1.0 -I./dsp/zita-resampler-1.1.0/zita-resampler \
 	 -fPIC -DPIC -O2 -Wall -fstack-protector -funroll-loops -ffast-math -fomit-frame-pointer -fstrength-reduce \
-	 -fdata-sections -Wl,--gc-sections $(ABI_CXXFLAGS) $(SSE_CFLAGS) `$(PKGCONFIG) $(PKGCONFIG_FLAGS) --cflags lv2`
+	 -fdata-sections -Wl,--gc-sections $(ABI_CXXFLAGS) $(SSE_CFLAGS) `$(PKGCONFIG) $(PKGCONFIG_FLAGS) --cflags lv2` -std=c++17
 	LDFLAGS += -I. -shared $(ABI_LDFLAGS) -lm
 	GUI_LDFLAGS += -I./gui -shared $(ABI_LDFLAGS) -lm `$(PKGCONFIG) $(PKGCONFIG_FLAGS) --cflags --libs cairo` $(GUI_LIBS)
 	# invoke build files
-	OBJECTS = plugin/$(NAME).cpp
-	GUI_OBJECTS = gui/$(NAME)_gui.c $(GUI_PLATFORM_FILES)
-	RES_OBJECTS = gui/pedal.o gui/pswitch_on.o gui/pswitch_off.o
-	## output style (bash colours)
-	LGREEN = "\033[1;92m"
-	BLUE = "\033[1;34m"
-	RED =  "\033[1;31m"
-	NONE = "\033[0m"
+DSP_SRC = dsp/ampegsvtp1.cc dsp/ampegsvtp2_h.cc dsp/ampegsvtp2_low_h.cc dsp/ampegsvtp2_low.cc dsp/ampegsvtp2_off_h.cc dsp/ampegsvtp2_off.cc dsp/ampegsvtp2.cc dsp/ampegsvtp3.cc dsp/ampegsvtp4_1.cc dsp/ampegsvtp4_2.cc dsp/ampegsvtp4_3.cc dsp/ampegsvtp5.cc dsp/cabsim.cc dsp/valve.cc dsp/zita-resampler-1.1.0/resampler.cc dsp/zita-resampler-1.1.0/resampler-table.cc
+DSP_OBJ = $(DSP_SRC:.cc=.o)
+OBJECTS = plugin/$(NAME).o $(DSP_OBJ)
+GUI_OBJECTS = gui/$(NAME)_gui.c $(GUI_PLATFORM_FILES)
+RES_OBJECTS = gui/pedal.o gui/pswitch_on.o gui/pswitch_off.o
+## output style (bash colours)
+LGREEN = "\033[1;92m"
+BLUE = "\033[1;34m"
+RED =  "\033[1;31m"
+NONE = "\033[0m"
 
 .PHONY : mod all clean install uninstall 
 
@@ -135,12 +137,14 @@ $(RES_OBJECTS) : gui/pedal.png gui/pswitch_on.png gui/pswitch_off.png
 clean :
 	@rm -f $(NAME).$(LIB_EXT)
 	@rm -rf ./$(BUNDLE)
+	@rm -f $(OBJECTS)
 	@$(ECHO) ". ." $(BLUE)", clean up"$(NONE)
 
 dist-clean :
 	@rm -f $(NAME).$(LIB_EXT)
 	@rm -rf ./$(BUNDLE)
 	@rm -rf ./$(RES_OBJECTS)
+	@rm -f $(OBJECTS)
 	@$(ECHO) ". ." $(BLUE)", clean up"$(NONE)
 
 install :
@@ -156,7 +160,13 @@ uninstall :
 	@rm -rf $(INSTALL_DIR)/$(BUNDLE)
 	@$(ECHO) ". ." $(BLUE)", done"$(NONE)
 
-$(NAME) : clean $(RES_OBJECTS)
+%.o: %.cpp
+	$(CXX) -c $(CXXFLAGS) $< -o $@
+
+%.o: %.cc
+	$(CXX) -c $(CXXFLAGS) $< -o $@
+
+$(NAME) : clean $(RES_OBJECTS) $(OBJECTS)
 	$(CXX) $(CXXFLAGS) $(OBJECTS) $(LDFLAGS) -o $(NAME).$(LIB_EXT)
 	$(CC) $(CXXFLAGS) $(ABI_CFLAGS) $(GUI_OBJECTS) $(RES_OBJECTS) $(GUI_LDFLAGS) -o $(NAME)_ui.$(LIB_EXT)
 	$(STRIP) -s -x -X -R .comment -R .note.ABI-tag $(NAME).$(LIB_EXT)

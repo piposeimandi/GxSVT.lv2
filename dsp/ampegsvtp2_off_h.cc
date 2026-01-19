@@ -1,3 +1,4 @@
+#include "faust_common.h"
 // generated from file './/ampegsvtp2_off_h.dsp' by dsp2cc:
 // Code generated with Faust 0.9.73 (http://faust.grame.fr)
 
@@ -9,13 +10,13 @@ private:
 	uint32_t fSamplingFreq;
 	FAUSTFLOAT 	fslider0;
 	FAUSTFLOAT	*fslider0_;
-	double 	fRec0[2];
-	double 	fConst0;
-	double 	fConst1;
-	double 	fConst2;
-	double 	fConst3;
-	double 	fRec1[2];
-	double 	fConst4;
+	float 	fRec0[2];
+	float 	fConst0;
+	float 	fConst1;
+	float 	fConst2;
+	float 	fConst3;
+	float 	fRec1[2];
+	float 	fConst4;
 	void connect(uint32_t port,void* data);
 	void clear_state_f();
 	void init(uint32_t samplingFreq);
@@ -64,7 +65,7 @@ void Dsp::clear_state_f_static(PluginLV2 *p)
 inline void Dsp::init(uint32_t samplingFreq)
 {
 	fSamplingFreq = samplingFreq;
-	fConst0 = double(min(192000, max(1, fSamplingFreq)));
+	fConst0 = float(min(192000, max(1, fSamplingFreq)));
 	fConst1 = (2.08070511534792e-05 * fConst0);
 	fConst2 = (0.00126154463299924 + fConst1);
 	fConst3 = ((0.00126154463299924 - fConst1) / fConst2);
@@ -80,10 +81,10 @@ void Dsp::init_static(uint32_t samplingFreq, PluginLV2 *p)
 void always_inline Dsp::compute(int count, FAUSTFLOAT *input0, FAUSTFLOAT *output0)
 {
 #define fslider0 (*fslider0_)
-	double 	fSlow0 = (0.007000000000000006 * double(fslider0));
+	float 	fSlow0 = (0.007000000000000006 * float(fslider0));
 	for (int i=0; i<count; i++) {
 		fRec0[0] = ((0.993 * fRec0[1]) + fSlow0);
-		fRec1[0] = ((double)input0[i] - (fConst3 * fRec1[1]));
+		fRec1[0] = ((float)input0[i] - (fConst3 * fRec1[1]));
 		output0[i] = (FAUSTFLOAT)(fConst4 * ((fRec1[1] * (0 - (2.08070511534792e-05 * fRec0[0]))) + (2.08070511534792e-05 * (fRec1[0] * fRec0[0]))));
 		// post processing
 		fRec1[1] = fRec1[0];

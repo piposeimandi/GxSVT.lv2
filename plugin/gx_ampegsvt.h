@@ -37,6 +37,8 @@ typedef enum
    MIDDLE, 
    TREBLE, 
    VOLUME,
+   DRIVE,
+   MIX,
    LOWSWITCH,
    MIDSWITCH,
    HIGHSWITCH,

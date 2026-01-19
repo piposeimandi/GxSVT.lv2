@@ -1,8 +1,16 @@
+#include "faust_common.h"
 // generated from file './/valve.dsp' by dsp2cc:
 // Code generated with Faust 0.9.73 (http://faust.grame.fr)
 
 
 namespace valve {
+
+inline float fastexpf(float x)
+{
+  union { float f; int i; } u;
+  u.i = (int)(12102203.2f * x * 1.44269504089f + 1064866805.0f);
+  return u.f;
+}
 
 class Dsp: public PluginLV2 {
 private:
@@ -52,12 +60,12 @@ void Dsp::init_static(uint32_t samplingFreq, PluginLV2 *p)
 void always_inline Dsp::compute(int count, FAUSTFLOAT *input0, FAUSTFLOAT *output0)
 {
 	for (int i=0; i<count; i++) {
-		double fTemp0 = (double)input0[i];
-		double fTemp1 = (0 - (0.0010000000000000002 + fabs(fTemp0)));
-		double fTemp2 = (1.2589254117941673 * fTemp1);
-		double fTemp3 = max((double)-600, fTemp2);
-		double fTemp4 = (0 - fTemp3);
-		output0[i] = (FAUSTFLOAT)copysign((0 - (0.7943282347242815 * (((int((fabs(fTemp2) > 0.0001)))?((int((fTemp3 < -50)))?(fTemp4 * exp(fTemp3)):(fTemp3 / (1 - exp(fTemp4)))):(1 + (fTemp1 * (0.6294627058970836 + (0.1320744327050928 * fTemp1))))) - 0.9993706693685673))), fTemp0);
+		float fTemp0 = (float)input0[i];
+		float fTemp1 = (0 - (0.0010000000000000002 + fabs(fTemp0)));
+		float fTemp2 = (1.2589254117941673 * fTemp1);
+		float fTemp3 = max((float)-600, fTemp2);
+		float fTemp4 = (0 - fTemp3);
+		output0[i] = (FAUSTFLOAT)copysign((0 - (0.7943282347242815 * (((int((fabs(fTemp2) > 0.0001)))?((int((fTemp3 < -50)))?(fTemp4 * fastexpf(fTemp3)):(fTemp3 / (1 - fastexpf(fTemp4)))):(1 + (fTemp1 * (0.6294627058970836 + (0.1320744327050928 * fTemp1))))) - 0.9993706693685673))), fTemp0);
 	}
 }
 		

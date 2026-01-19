@@ -118,10 +118,28 @@ rdfs:comment """
         lv2:default 0.2 ;
         lv2:minimum 0.0 ;
         lv2:maximum 1.0 ;
-    ] , [
+    ]      , [
         a lv2:InputPort ,
             lv2:ControlPort ;
         lv2:index 7 ;
+        lv2:symbol "DRIVE" ;
+        lv2:name "DRIVE" ;
+        lv2:default 0.5 ;
+        lv2:minimum 0.0 ;
+        lv2:maximum 1.0 ;
+    ] , [
+        a lv2:InputPort ,
+            lv2:ControlPort ;
+        lv2:index 8 ;
+        lv2:symbol "MIX" ;
+        lv2:name "MIX" ;
+        lv2:default 1.0 ;
+        lv2:minimum 0.0 ;
+        lv2:maximum 1.0 ;
+    ] , [
+        a lv2:InputPort ,
+            lv2:ControlPort ;
+        lv2:index 9 ;
         lv2:symbol "LOWSWITCH" ;
         lv2:name "LOWSWITCH" ;
         lv2:default 1.0 ;
@@ -135,7 +153,7 @@ rdfs:comment """
     ] , [
         a lv2:InputPort ,
             lv2:ControlPort ;
-        lv2:index 8 ;
+        lv2:index 10 ;
         lv2:symbol "MIDSWITCH" ;
         lv2:name "MIDSWITCH" ;
         lv2:default 1.0 ;
@@ -149,7 +167,7 @@ rdfs:comment """
     ] , [
         a lv2:InputPort ,
             lv2:ControlPort ;
-        lv2:index 9 ;
+        lv2:index 11 ;
         lv2:symbol "HIGHSWITCH" ;
         lv2:name "HIGHSWITCH" ;
         lv2:default 0.0 ;
@@ -162,16 +180,17 @@ rdfs:comment """
     ] , [
         a lv2:InputPort ,
             lv2:ControlPort ;
-        lv2:index 10 ;
+        lv2:index 12 ;
         lv2:symbol "CABSWITCH" ;
         lv2:name "CABSWITCH" ;
         lv2:default 0.0 ;
         lv2:minimum 0.0 ;
-        lv2:maximum 1.0 ;
+        lv2:maximum 2.0 ;
         lv2:portProperty lv2:integer;
         lv2:portProperty lv2:enumeration ; 
         lv2:scalePoint [rdfs:label "OFF"; rdf:value 0];
-        lv2:scalePoint [rdfs:label "ON"; rdf:value 1];
+        lv2:scalePoint [rdfs:label "Cabinet A"; rdf:value 1];
+        lv2:scalePoint [rdfs:label "Cabinet B"; rdf:value 2];
     ] .
 
 <http://guitarix.sourceforge.net/plugins/gx_ampegsvt_gui#_ampegsvt_>

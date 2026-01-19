@@ -1,3 +1,4 @@
+#include "faust_common.h"
 // generated from file './/ampegsvtp2_low_h.dsp' by dsp2cc:
 // Code generated with Faust 0.9.73 (http://faust.grame.fr)
 
@@ -7,47 +8,47 @@ namespace ampegsvtp2_low_h {
 class Dsp: public PluginLV2 {
 private:
 	uint32_t fSamplingFreq;
-	double 	fConst0;
-	double 	fConst1;
-	double 	fConst2;
+	float 	fConst0;
+	float 	fConst1;
+	float 	fConst2;
 	FAUSTFLOAT 	fslider0;
 	FAUSTFLOAT	*fslider0_;
-	double 	fRec0[2];
-	double 	fConst3;
-	double 	fConst4;
-	double 	fConst5;
-	double 	fConst6;
-	double 	fConst7;
-	double 	fConst8;
-	double 	fConst9;
-	double 	fConst10;
-	double 	fConst11;
-	double 	fConst12;
-	double 	fConst13;
-	double 	fConst14;
-	double 	fConst15;
-	double 	fConst16;
-	double 	fConst17;
-	double 	fConst18;
-	double 	fConst19;
-	double 	fConst20;
-	double 	fConst21;
-	double 	fConst22;
-	double 	fConst23;
-	double 	fConst24;
-	double 	fConst25;
-	double 	fConst26;
-	double 	fRec1[6];
-	double 	fConst27;
-	double 	fConst28;
-	double 	fConst29;
-	double 	fConst30;
-	double 	fConst31;
-	double 	fConst32;
-	double 	fConst33;
-	double 	fConst34;
-	double 	fConst35;
-	double 	fConst36;
+	float 	fRec0[2];
+	float 	fConst3;
+	float 	fConst4;
+	float 	fConst5;
+	float 	fConst6;
+	float 	fConst7;
+	float 	fConst8;
+	float 	fConst9;
+	float 	fConst10;
+	float 	fConst11;
+	float 	fConst12;
+	float 	fConst13;
+	float 	fConst14;
+	float 	fConst15;
+	float 	fConst16;
+	float 	fConst17;
+	float 	fConst18;
+	float 	fConst19;
+	float 	fConst20;
+	float 	fConst21;
+	float 	fConst22;
+	float 	fConst23;
+	float 	fConst24;
+	float 	fConst25;
+	float 	fConst26;
+	float 	fRec1[6];
+	float 	fConst27;
+	float 	fConst28;
+	float 	fConst29;
+	float 	fConst30;
+	float 	fConst31;
+	float 	fConst32;
+	float 	fConst33;
+	float 	fConst34;
+	float 	fConst35;
+	float 	fConst36;
 	void connect(uint32_t port,void* data);
 	void clear_state_f();
 	void init(uint32_t samplingFreq);
@@ -96,7 +97,7 @@ void Dsp::clear_state_f_static(PluginLV2 *p)
 inline void Dsp::init(uint32_t samplingFreq)
 {
 	fSamplingFreq = samplingFreq;
-	fConst0 = double(min(192000, max(1, fSamplingFreq)));
+	fConst0 = float(min(192000, max(1, fSamplingFreq)));
 	fConst1 = (1.74059470813888e-20 * fConst0);
 	fConst2 = (1.79715090222811e-10 + (fConst0 * (3.58893012350396e-13 + (fConst0 * (1.58455800645135e-16 + fConst1)))));
 	fConst3 = (1.15654133431155e-23 * fConst0);
@@ -144,11 +145,11 @@ void Dsp::init_static(uint32_t samplingFreq, PluginLV2 *p)
 void always_inline Dsp::compute(int count, FAUSTFLOAT *input0, FAUSTFLOAT *output0)
 {
 #define fslider0 (*fslider0_)
-	double 	fSlow0 = (0.007000000000000006 * double(fslider0));
+	float 	fSlow0 = (0.007000000000000006 * float(fslider0));
 	for (int i=0; i<count; i++) {
 		fRec0[0] = ((0.993 * fRec0[1]) + fSlow0);
-		double fTemp0 = (8.26775872158989e-09 + (fConst0 * ((fRec0[0] * (fConst5 + (fConst4 * fRec0[0]))) + fConst2)));
-		fRec1[0] = ((double)input0[i] - ((((((fRec1[1] * (4.13387936079495e-08 + (fConst0 * ((fRec0[0] * (fConst26 + (fConst25 * fRec0[0]))) + fConst24)))) + (fRec1[2] * (8.26775872158989e-08 + (fConst0 * ((fRec0[0] * (fConst23 + (fConst22 * fRec0[0]))) + fConst21))))) + (fRec1[3] * (8.26775872158989e-08 + (fConst0 * ((fRec0[0] * (fConst20 + (fConst19 * fRec0[0]))) + fConst17))))) + (fRec1[4] * (4.13387936079495e-08 + (fConst0 * ((fRec0[0] * (fConst15 + (fConst14 * fRec0[0]))) + fConst12))))) + (fRec1[5] * (8.26775872158989e-09 + (fConst0 * ((fRec0[0] * (fConst10 + (fConst9 * fRec0[0]))) + fConst8))))) / fTemp0));
+		float fTemp0 = (8.26775872158989e-09 + (fConst0 * ((fRec0[0] * (fConst5 + (fConst4 * fRec0[0]))) + fConst2)));
+		fRec1[0] = ((float)input0[i] - ((((((fRec1[1] * (4.13387936079495e-08 + (fConst0 * ((fRec0[0] * (fConst26 + (fConst25 * fRec0[0]))) + fConst24)))) + (fRec1[2] * (8.26775872158989e-08 + (fConst0 * ((fRec0[0] * (fConst23 + (fConst22 * fRec0[0]))) + fConst21))))) + (fRec1[3] * (8.26775872158989e-08 + (fConst0 * ((fRec0[0] * (fConst20 + (fConst19 * fRec0[0]))) + fConst17))))) + (fRec1[4] * (4.13387936079495e-08 + (fConst0 * ((fRec0[0] * (fConst15 + (fConst14 * fRec0[0]))) + fConst12))))) + (fRec1[5] * (8.26775872158989e-09 + (fConst0 * ((fRec0[0] * (fConst10 + (fConst9 * fRec0[0]))) + fConst8))))) / fTemp0));
 		output0[i] = (FAUSTFLOAT)(fConst0 * ((fRec0[0] * ((((((fRec1[0] * (fConst36 + (fConst35 * fRec0[0]))) + (fRec1[1] * (fConst34 + (fConst33 * fRec0[0])))) + (fRec1[2] * (fConst32 + (fConst31 * fRec0[0])))) + (fRec1[3] * (fConst30 + (fConst29 * fRec0[0])))) + (fRec1[4] * (fConst28 + (fConst27 * fRec0[0])))) + (fRec1[5] * (fConst7 + (fConst6 * fRec0[0]))))) / fTemp0));
 		// post processing
 		for (int i=5; i>0; i--) fRec1[i] = fRec1[i-1];

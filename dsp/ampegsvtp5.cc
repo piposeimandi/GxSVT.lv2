@@ -1,3 +1,4 @@
+#include "faust_common.h"
 // generated from file './/ampegsvtp5.dsp' by dsp2cc:
 // Code generated with Faust 0.9.73 (http://faust.grame.fr)
 
@@ -7,14 +8,14 @@ namespace ampegsvtp5 {
 class Dsp: public PluginLV2 {
 private:
 	uint32_t fSamplingFreq;
-	double 	fConst0;
-	double 	fConst1;
-	double 	fConst2;
-	double 	fConst3;
-	double 	fRec0[2];
-	double 	fConst4;
-	double 	fConst5;
-	double 	fConst6;
+	float 	fConst0;
+	float 	fConst1;
+	float 	fConst2;
+	float 	fConst3;
+	float 	fRec0[2];
+	float 	fConst4;
+	float 	fConst5;
+	float 	fConst6;
 	void connect(uint32_t port,void* data);
 	void clear_state_f();
 	void init(uint32_t samplingFreq);
@@ -62,7 +63,7 @@ void Dsp::clear_state_f_static(PluginLV2 *p)
 inline void Dsp::init(uint32_t samplingFreq)
 {
 	fSamplingFreq = samplingFreq;
-	fConst0 = double(min(192000, max(1, fSamplingFreq)));
+	fConst0 = float(min(192000, max(1, fSamplingFreq)));
 	fConst1 = (2.08331569590038e-05 * fConst0);
 	fConst2 = (8.46596781816638e-06 + fConst1);
 	fConst3 = ((8.46596781816638e-06 - fConst1) / fConst2);
@@ -80,7 +81,7 @@ void Dsp::init_static(uint32_t samplingFreq, PluginLV2 *p)
 void always_inline Dsp::compute(int count, FAUSTFLOAT *input0, FAUSTFLOAT *output0)
 {
 	for (int i=0; i<count; i++) {
-		fRec0[0] = ((double)input0[i] - (fConst3 * fRec0[1]));
+		fRec0[0] = ((float)input0[i] - (fConst3 * fRec0[1]));
 		output0[i] = (FAUSTFLOAT)(fConst6 * ((fConst5 * fRec0[1]) + (fConst4 * fRec0[0])));
 		// post processing
 		fRec0[1] = fRec0[0];
